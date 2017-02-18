@@ -1,0 +1,75 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" controllerName="SMSApp.controller.View1" displayBlock="true">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<Table id="EmpTable" inset="false" growing="true" items="{/Employee_dataSet}" fixedLayout="false">
+						<columns>
+							<Column demandPopin="true">
+								<Text text="{i18n>Mid}"/>
+							</Column>
+							<Column minScreenWidth="Tablet">
+								<Text text="{i18n>EmpName}"/>
+							</Column>
+							<Column minScreenWidth="Tablet">
+								<Text text="{i18n>Dept}"/>
+							</Column>
+							<Column minScreenWidth="Tablet">
+								<Text text="{i18n>Posn}"/>
+							</Column>
+							<Column minScreenWidth="Tablet">
+								<Text text="{i18n>EmpGrp}"/>
+							</Column>
+							<Column minScreenWidth="Tablet">
+								<Text text="{i18n>EmpSubGrp}"/>
+							</Column>
+							<Column demandPopin="true" hAlign="Center">
+								<Text text="{i18n>Mob}"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{Mid}"/>
+									<Text text="{Ename}" wrapping="false"/>
+									<Text text="{Orgtx}" textDirection="RTL"/>
+									<Text text="{Plstx}" textDirection="RTL"/>
+									<Text text="{EmpgrpTxt}" textDirection="RTL"/>
+									<Text text="{EmpsubgrpTxt}" textDirection="RTL"/>
+									<Text text="{Mob}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<Toolbar width="100%">
+					<content>
+						<ToolbarSpacer/>
+						<Button id="idAddRow" press="onPressAdd" type="Emphasized" icon="sap-icon://add"/>
+					</content>
+				</Toolbar>
+				<l:VerticalLayout class="sapUiContentPadding" width="100%">
+					<l:content>
+						<MessageStrip showIcon="true" text="{i18n>smsinfo}" class="sapUiTinyMarginBottom"/>
+						<MessageStrip showIcon="true" text="{i18n>smsmax}" class="sapUiTinyMarginBottom"/>
+						<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+							<f:content>
+								<Label text="{i18n>smstext}" required="true"/>
+								<TextArea id="__area0" width="100%" rows="4" change="onTextChange" liveChange="onTextChange" valueStateText="{i18n>smsmax}"/>
+							</f:content>
+						</f:SimpleForm>
+					</l:content>
+				</l:VerticalLayout>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button id="idSubmit_copy" text="{i18n>Send}" press="onPressSend" type="Accept" icon="sap-icon://email"/>
+						<Button text="{i18n>Cancel}" press="onPressChange" type="Transparent" icon="sap-icon://sys-cancel"/>
+						<content/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
