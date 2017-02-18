@@ -56,7 +56,7 @@
 						<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 							<f:content>
 								<Label text="{i18n>smstext}" required="true"/>
-								<TextArea id="__area0" width="100%" rows="4" change="onTextChange" liveChange="onTextChange" valueStateText="{i18n>smsmax}"/>
+								<TextArea id="__area0" width="100%" maxLength="101" rows="4" change="onTextChange" liveChange="onTextChange" valueStateText="{i18n>smsmax}"/>
 							</f:content>
 						</f:SimpleForm>
 					</l:content>
