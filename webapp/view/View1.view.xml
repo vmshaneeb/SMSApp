@@ -46,7 +46,12 @@
 				<Toolbar width="100%">
 					<content>
 						<ToolbarSpacer/>
-						<Button id="idAddRow" press="onPressAdd" type="Emphasized" icon="sap-icon://add"/>
+						<Button id="idAddRow" press="onPressAdd" type="Emphasized" icon="sap-icon://add">
+							<customData>
+								<core:CustomData key="multi" value="true"/>
+								<core:CustomData key="Mid" value="{Mid}"/>
+							</customData>
+						</Button>
 					</content>
 				</Toolbar>
 				<l:VerticalLayout class="sapUiContentPadding" width="100%">

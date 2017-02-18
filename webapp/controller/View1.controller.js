@@ -7,20 +7,22 @@ sap.ui.define([
 ], function(Controller, JSONModel, Fragment, Filter, MessageToast) {
 	"use strict";
 	// var jModel = new sap.ui.model.json.JSONModel();
-	var jModel = new JSONModel();
+	// var jModel = new JSONModel();
 	return Controller.extend("SMSApp.controller.View1", {
 		onInit: function() {
+			var jModel = new JSONModel();
 			var result = {},
 				Pernr = "",
 				Mid = "",
 				midSelect = "",
-				i18nModel = i18nModel; // this.getView().setModel(oModel);
+				i18nModel = i18nModel; 
+				this.getView().setModel(jModel);
 		},
 		onPressAdd: function(oEvent) {
 			// var me = this;
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("SMSApp.utils.User", this);
-				this._oDialog.setModel(jModel);
+				// this._oDialog.setModel(jModel);
 				this.getView().addDependent(this._oDialog);
 			}
 			// Multi-select if required
