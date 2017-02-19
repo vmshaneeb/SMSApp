@@ -1,28 +1,53 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/odata/ODataModel",
+	"sap/ui/model/odata/v2/ODataModel",
 	"sap/ui/core/Fragment",
 	"sap/m/MessageToast",
 	"sap/ui/model/Filter"
-], function(Controller, JSONModel, Fragment, Filter, MessageToast) {
+], function(Controller, JSONModel, ODataModel, ODataModelV2, Fragment, Filter, MessageToast) {
 	"use strict";
 	// var jModel = new sap.ui.model.json.JSONModel();
-	// var jModel = new JSONModel();
+	var jModel = new JSONModel();
+
+	var url = "/sap/opu/odata/sap/ZHCM_SMS_SRV";
+	var oModel = new ODataModel(url, true);
+	var oModelv2 = new ODataModelV2(url);
+	// , {
+	// 	useBatch: false
+	// });
+
+	var result = {},
+		Pernr = "",
+		Mid = "",
+		midSelect = "",
+		i18nModel = i18nModel;
+
 	return Controller.extend("SMSApp.controller.View1", {
 		onInit: function() {
-			var jModel = new JSONModel();
-			var result = {},
-				Pernr = "",
-				Mid = "",
-				midSelect = "",
-				i18nModel = i18nModel; 
-				this.getView().setModel(jModel);
+			// i18nModel = this.getView().getModel("i18n").getResourceBundle();
+			
+			this.getView().setModel(oModel);
+
+			oModelv2.read("/Employee_f4Set", {
+				success: function(oData, oResponse) {
+					result.Employee_f4Set = oData.results;
+					jModel.setData(result);
+				},
+				error: function(oError) {
+					// jQuery.sap.log.info("OData Read Error!!!");
+					// MessageToast.show("OData Read Error!!!");
+					MessageToast.show(i18nModel.getProperty("Oderr"));
+				}
+			});
+
 		},
 		onPressAdd: function(oEvent) {
 			// var me = this;
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("SMSApp.utils.User", this);
-				// this._oDialog.setModel(jModel);
+				this._oDialog.setModel(jModel);
 				this.getView().addDependent(this._oDialog);
 			}
 			// Multi-select if required
@@ -42,6 +67,7 @@ sap.ui.define([
 				this._oDialog.destroy();
 			}
 		},
+
 		handleTableSelectDialogPress: function(oEvent) {
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("sap.m.sample.TableSelectDialog.Dialog", this);
@@ -57,11 +83,10 @@ sap.ui.define([
 			jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
 			this._oDialog.open();
 		},
+
 		handleSearch: function(oEvent) {
 			var sValue = oEvent.getParameter("value");
-			// var oFilter = new Filter("Name", sap.ui.model.FilterOperator.Contains, sValue);
-			// var oBinding = oEvent.getSource().getBinding("items");
-			// oBinding.filter([oFilter]);
+
 			var oFilter = new sap.ui.model.Filter("Mid", sap.ui.model.FilterOperator.Contains, sValue);
 			var oFilter1 = new sap.ui.model.Filter("Pernr", sap.ui.model.FilterOperator.Contains, sValue);
 			var oFilter2 = new sap.ui.model.Filter("Ename", sap.ui.model.FilterOperator.Contains, sValue);
@@ -74,8 +99,10 @@ sap.ui.define([
 				oFilter3,
 				oFilter4
 			], false);
+
 			oEvent.getSource().getBinding("items").filter(allfilter);
 		},
+
 		handleClose: function(oEvent) {
 			var aContexts = oEvent.getParameter("selectedContexts");
 			if (aContexts && aContexts.length) {

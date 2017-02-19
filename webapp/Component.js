@@ -1,8 +1,11 @@
+var i18nModel;
+
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"SMSApp/model/models"
-], function(UIComponent, Device, models) {
+	"SMSApp/model/models",
+	"sap/ui/model/resource/ResourceModel"
+], function(UIComponent, Device, models, ResourceModel) {
 	"use strict";
 
 	return UIComponent.extend("SMSApp.Component", {
@@ -17,6 +20,13 @@ sap.ui.define([
 		 * @override
 		 */
 		init: function() {
+
+			// set i18n model
+			i18nModel = new ResourceModel({
+				bundleName: "SMSApp.i18n.i18n"
+			});
+			this.setModel(i18nModel, "i18n");
+
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
