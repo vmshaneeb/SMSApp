@@ -2,10 +2,12 @@
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" controllerName="SMSApp.controller.View1" displayBlock="true">
 	<App>
 		<pages>
-			<Page title="{i18n>title}" class="sapUiSizeCompact">
-				<content>
+			<Page title="{i18n>title}" class="sapUiSizeCompact" navButtonPress="onNavBack" showNavButton="true">
+				<!--<content>-->
+				<ScrollContainer height="70%" width="100%" horizontal="true" vertical="true" focusable="true">
 					<Table id="EmpTable" inset="false" growing="true" mode="Delete"
-						items="{path: '/Employee_dataSet', sorter : { path : 'Mid', descending : false }}" fixedLayout="false" delete="onDeleteRow">
+						items="{path: '/Employee_dataSet', sorter : { path : 'Mid', descending : false }}" fixedLayout="false" delete="onDeleteRow"
+						growingScrollToLoad="true">
 						<columns>
 							<Column demandPopin="true">
 								<Text text="{i18n>Mid}"/>
@@ -43,7 +45,8 @@
 							</ColumnListItem>
 						</items>
 					</Table>
-				</content>
+					<!--</content>-->
+				</ScrollContainer>
 				<Toolbar width="100%">
 					<content>
 						<ToolbarSpacer/>
@@ -72,7 +75,7 @@
 					<Toolbar>
 						<ToolbarSpacer/>
 						<Button id="idSubmit_copy" text="{i18n>Send}" press="onPressSend" type="Accept" icon="sap-icon://email"/>
-						<Button text="{i18n>Cancel}" press="onPressChange" type="Transparent" icon="sap-icon://sys-cancel"/>
+						<Button text="{i18n>Cancel}" press="onPressCancel" type="Transparent" icon="sap-icon://sys-cancel"/>
 						<content/>
 					</Toolbar>
 				</footer>
